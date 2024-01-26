@@ -1,0 +1,111 @@
+db.createCollection( 'botigas', {validator: {$jsonSchema: {bsonType: 'object',title:'botigas',required: [         'direccion',          'codigo_postal',          'localidad',          'provincia'],properties: {direccion: {bsonType: 'object',
+title:'object',required: [         'calle',          'numero',          'piso',          'puerta'],properties: {calle: {bsonType: 'string'},numero: {bsonType: 'string'},piso: {bsonType: 'string'},puerta: {bsonType: 'string'}}},codigo_postal: {bsonType: 'string'},localidad: {bsonType: 'string'},provincia: {bsonType: 'string'}}         }      }});  
+ db.botigas.createIndex(
+{
+  "_id": 1
+})
+
+
+db.createCollection( 'clientes', {validator: {$jsonSchema: {bsonType: 'object',title:'clientes',required: [         'nombre',          'apellidos',          'direccion',          'codigo_postal',          'localidad',          'provincia',          'telefono'],properties: {nombre: {bsonType: 'string'},apellidos: {bsonType: 'string'},direccion: {bsonType: 'object',
+title:'object',required: [         'calle',          'numero',          'piso',          'puerta'],properties: {calle: {bsonType: 'string'},numero: {bsonType: 'string'},piso: {bsonType: 'string'},puerta: {bsonType: 'string'}}},codigo_postal: {bsonType: 'string'},localidad: {bsonType: 'string'},provincia: {bsonType: 'string'},telefono: {bsonType: 'string'}}         }      }});  
+ db.clientes.createIndex(
+{
+  "_id": 1
+})
+
+
+db.createCollection( 'empleados', {validator: {$jsonSchema: {bsonType: 'object',title:'empleados',required: [         'nombre',          'apellidos',          'NIF',          'telefono',          'rol',          'botiga_id'],properties: {nombre: {bsonType: 'string'},apellidos: {bsonType: 'string'},NIF: {bsonType: 'string'},telefono: {bsonType: 'string'},rol: {bsonType: 'string'},botiga_id: {bsonType: 'objectId'}}         }      }});  
+ db.empleados.createIndex(
+{
+  "_id": 1
+})
+
+
+db.createCollection( 'pedidos', {validator: {$jsonSchema: {bsonType: 'object',title:'pedidos',required: [         'fecha_hora',          'tipo_entrega',          'nota',          'cliente_id',          'empleado_id',          'botiga_id',          'fecha_hora_entrega',          'productos',          'precio_total'],properties: {fecha_hora: {bsonType: 'date'},tipo_entrega: {bsonType: 'string'},nota: {bsonType: 'string'},cliente_id: {bsonType: 'objectId'},empleado_id: {bsonType: 'objectId'},botiga_id: {bsonType: 'objectId'},fecha_hora_entrega: {bsonType: 'date'},productos: {bsonType: 'array',items: {
+title:'object',required: [         'producto_id',          'nombre',          'descripcion',          'imagen_url',          'cantidad',          'precio'],properties: {producto_id: {bsonType: 'objectId'},nombre: {bsonType: 'string'},descripcion: {bsonType: 'string'},imagen_url: {bsonType: 'string'},cantidad: {bsonType: 'int'},precio: {bsonType: 'double'}}}},precio_total: {bsonType: 'double'}}         }      }});  
+ db.pedidos.createIndex(
+{
+  "_id": 1
+})
+
+db.botigas.insertOne({
+  _id: ObjectId("60b1b3e41c4ae837d4a8b6e9"),
+  direccion: {
+    calle: "Gran Vía",
+    numero: "123",
+    piso: "3",
+    puerta: "2A"
+  },
+  codigo_postal: "28013",
+  localidad: "Madrid",
+  provincia: "Madrid"
+});
+db.clientes.insertOne({
+  _id: ObjectId("60b1b4e41c4ae837d4a8b6f0"), // Un ObjectId único para este cliente
+  nombre: "Ana",
+  apellidos: "López",
+  direccion: {
+    calle: "Calle del Cliente",
+    numero: "456",
+    piso: "2",
+    puerta: "B"
+  },
+  codigo_postal: "28015",
+  localidad: "Madrid",
+  provincia: "Madrid",
+  telefono: "612345678"
+});
+db.empleados.insertOne({
+  _id: ObjectId("60b1b5e41c4ae837d4a8b6f1"), // Un ObjectId único para este empleado
+  nombre: "Carlos",
+  apellidos: "Martín",
+  NIF: "98765432Q",
+  telefono: "630123456",
+  rol: "Gerente",
+  botiga_id: ObjectId("60b1b3e41c4ae837d4a8b6e9") // Debe ser un ID existente en 'botigas'
+});
+db.productos.insertOne({
+  _id: ObjectId("60b1b6e41c4ae837d4a8b6f2"), // Un ObjectId único para este producto
+  nombre: "Pizza Barbacoa",
+  descripcion: "Salsa barbacoa, mozzarella, carne y cebolla",
+  imagen_url: "https://ruta/a/imagen/pizza/barbacoa.jpg",
+  precio: 15.00
+});
+db.pedidos.insertOne({
+  _id: ObjectId("60b1b7e41c4ae837d4a8b6f3"),
+  fecha_hora: new Date(),
+  tipo_entrega: "Domicilio",
+  precio_total: 30.001, // Asegúrate de que sea un double
+  nota: "Llamar al timbre al llegar",
+  cliente_id: ObjectId("60b1b4e41c4ae837d4a8b6f0"),
+  empleado_id: ObjectId("60b1b5e41c4ae837d4a8b6f1"),
+  botiga_id: ObjectId("60b1b3e41c4ae837d4a8b6e9"),
+  fecha_hora_entrega: new Date(),
+  productos: [
+    {
+      producto_id: ObjectId("60b1b6e41c4ae837d4a8b6f2"),
+      nombre: "Pizza Barbacoa",
+      descripcion: "Salsa barbacoa, mozzarella, carne y cebolla",
+      imagen_url: "https://ruta/a/imagen/pizza/barbacoa.jpg",
+      cantidad: 2,
+      precio: 15.001 // Asegúrate de que sea un double
+    }
+  ]
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     

@@ -1,0 +1,32 @@
+Mostrar todos los documentos|{}
+Mostrar restaurant_id, name, borough y cuisine|{}, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Mostrar restaurant_id, name, borough y cuisine, excluyendo _id|{}, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1, "_id": 0 }
+Mostrar restaurant_id, name, borough y zip code, excluyendo _id|{}, { "restaurant_id": 1, "name": 1, "borough": 1, "address.zipcode": 1, "_id": 0 }
+Mostrar todos los restaurantes en el Bronx|{ "borough": "Bronx" }
+Mostrar los primeros 5 restaurantes en el Bronx|{ "borough": "Bronx" }, { "$limit": 5 }
+Mostrar los siguientes 5 restaurantes después de los primeros 5 en el Bronx|{ "borough": "Bronx" }, { "$skip": 5, "$limit": 5 }
+Encontrar los restaurantes con un score mayor a 90|{ "grades.score": { "$gt": 90 } }
+Encontrar los restaurantes con un score mayor a 80 pero menor a 100|{ "grades.score": { "$gt": 80, "$lt": 100 } }
+Encontrar los restaurantes con una latitud menor a -95.754168|{ "address.coord": { "$lt": -95.754168 } }
+Encontrar restaurantes que no preparan 'American', score > 70 y longitud < -65.754168|{ "cuisine": { "$ne": "American" }, "grades.score": { "$gt": 70 }, "address.coord": { "$lt": -65.754168 } }
+Encontrar restaurantes que no preparan 'American', score > 70 y longitud < -65.754168 (sin usar $and)|{ "cuisine": { "$ne": "American" }, "grades.score": { "$gt": 70 }, "address.coord": { "$lt": -65.754168 } }
+Encontrar restaurantes que no preparan 'American', con grado 'A' y no en Brooklyn, ordenados por cuisine descendente|{ "cuisine": { "$ne": "American" }, "grades.grade": "A", "borough": { "$ne": "Brooklyn" } }, { "$sort": { "cuisine": -1 } }
+Encontrar restaurantes con 'Wil' como primeras tres letras del nombre|{ "name": { "$regex": "^Wil" } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes con 'ces' como últimas tres letras del nombre|{ "name": { "$regex": "ces$" } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes con 'Reg' en alguna parte del nombre|{ "name": { "$regex": "Reg" } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes en Bronx que preparan comida americana o china|{ "borough": "Bronx", "cuisine": { "$in": ["American ", "Chinese"] } }
+Encontrar restaurantes en Staten Island, Queens, Bronx o Brooklyn|{ "borough": { "$in": ["Staten Island", "Queens", "Bronx", "Brooklyn"] } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes que no están en Staten Island, Queens, Bronx o Brooklyn|{ "borough": { "$nin": ["Staten Island", "Queens", "Bronx", "Brooklyn"] } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes con score no mayor a 10|{ "grades.score": { "$lte": 10 } }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes que preparan pescado excepto 'American' y 'Chinese' o el nombre comienza con 'Wil'|{ "$or": [ { "cuisine": "Fish", "cuisine": { "$nin": ["American", "Chinese"] } }, { "name": { "$regex": "^Wil" } } ] }, { "restaurant_id": 1, "name": 1, "borough": 1, "cuisine": 1 }
+Encontrar restaurantes con grado 'A', score 11 y fecha '2014-08-11'|{ "grades": { "$elemMatch": { "grade": "A", "score": 11, "date": ISODate("2014-08-11T00:00:00Z") } } }, { "restaurant_id": 1, "name": 1, "grades": 1 }
+Encontrar restaurantes donde el 2do elemento de grades tiene 'A', score 9 en '2014-08-11'|{ "grades.1.grade": "A", "grades.1.score": 9, "grades.1.date": ISODate("2014-08-11T00:00:00Z") }, { "restaurant_id": 1, "name": 1, "grades": 1 }
+Encontrar restaurantes donde el 2do elemento de coord es > 42 y < 52|{ "address.coord.1": { "$gt": 42, "$lt": 52 } }, { "restaurant_id": 1, "name": 1, "address": 1 }
+Organizar nombres de restaurantes en orden ascendente|{}, { "$sort": { "name": 1 } }
+Organizar nombres de restaurantes en orden descendente|{}, { "$sort": { "name": -1 } }
+Organizar cuisine en orden ascendente y por el mismo borough en orden descendente|{}, { "$sort": { "cuisine": 1, "borough": -1 } }
+Encontrar direcciones que no contienen el campo calle|{ "address.street": { "$exists": false } }
+Seleccionar documentos donde coord es de tipo Double|{ "address.coord": { "$type": "double" } }
+Encontrar restaurantes donde el score dividido por 7 da resto 0|{ "grades.score": { "$mod": [7, 0] } }, { "restaurant_id": 1, "name": 1, "grades": 1 }
+Encontrar restaurantes con 'mon' en su nombre|{ "name": { "$regex": "mon" } }, { "name": 1, "borough": 1, "address.coord": 1, "cuisine": 1 }
+Encontrar restaurantes con 'Mad' como primeras tres letras del nombre|{ "name": { "$regex": "^Mad" } }, { "name": 1, "borough": 1, "address.coord": 1, "cuisine": 1 }
