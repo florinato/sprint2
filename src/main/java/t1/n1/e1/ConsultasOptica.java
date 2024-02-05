@@ -98,8 +98,6 @@ public static void main(String[] args) {
     consultas.listarProveedoresDeGafasVendidas();
 
     consultas.cerrarConexion();
-
-    
 }
 
 }

@@ -1,4 +1,4 @@
-package t3.n3;
+package t4;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ public class MongoDBApp {
         MongoDatabase database = mongoClient.getDatabase("restaurants");
         MongoCollection<Document> collection = database.getCollection("coleccion");
         Scanner scanner = new Scanner(System.in);
-        try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\t3\\n3\\consultas.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\t4\\consultas.txt"))) {
             String line;
             
             while ((line = reader.readLine()) != null) {
