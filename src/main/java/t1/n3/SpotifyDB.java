@@ -185,7 +185,6 @@ public class SpotifyDB {
 // Cerrar las conexiones
 statement.close();
 conexion.close();
-           
 
             // Cerrar las conexiones
             statement.close();
