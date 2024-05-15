@@ -204,10 +204,10 @@ private static final String URL = "jdbc:mysql://localhost:3306/Yutube";
         // Datos de ejemplo para relaciones playlist-video
         int[][] datosPlaylistVideos = {
             {1, 1}, // Asocia el video 1 con la playlist 1
-            {1, 2}, 
-            {2, 3}, 
-            {2, 4}, 
-            {3, 2}, 
+            {1, 2},
+            {2, 3},
+            {2, 4},
+            {3, 2},
             {3, 4},
             {3, 5},
             {2, 7},
